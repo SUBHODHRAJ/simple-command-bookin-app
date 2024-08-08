@@ -1,0 +1,57 @@
+class TicketBookingApp:
+    def __init__(self):
+        self.events = {
+            "Concert A": 100,
+            "Concert B": 50,
+            "Concert C": 75
+        }
+    
+    def display_events(self):
+        print("Available Events:")
+        for event, tickets in self.events.items():
+            print(f"{event}: {tickets} tickets available")
+    
+    def book_tickets(self):
+        self.display_events()
+        
+        event = input("Enter the name of the event you want to book tickets for: ")
+        if event not in self.events:
+            print("Event not found. Please select a valid event.")
+            return
+        
+        try:
+            num_tickets = int(input("Enter the number of tickets you want to book: "))
+            if num_tickets <= 0:
+                print("Number of tickets must be greater than zero.")
+                return
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+            return
+        
+        if self.events[event] >= num_tickets:
+            self.events[event] -= num_tickets
+            print(f"Successfully booked {num_tickets} tickets for {event}.")
+        else:
+            print("Not enough tickets available.")
+    
+    def run(self):
+        while True:
+            print("\nTicket Booking System")
+            print("1. View Events")
+            print("2. Book Tickets")
+            print("3. Exit")
+            
+            choice = input("Enter your choice: ")
+            if choice == '1':
+                self.display_events()
+            elif choice == '2':
+                self.book_tickets()
+            elif choice == '3':
+                print("Exiting the Ticket Booking System.")
+                break
+            else:
+                print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    app = TicketBookingApp()
+    app.run()
